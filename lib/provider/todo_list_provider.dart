@@ -23,10 +23,52 @@ class ToDoListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  int _toDoListIdx = 0;
-  int get toDoListIdx => _toDoListIdx;
-  set toDoListIdx(int value) {
+  List<ToDo> _completeToDoList = [];
+  List<ToDo> get completeToDoList => _completeToDoList;
+  set completeToDoList(List<ToDo> value) {
+    _completeToDoList = value;
+    notifyListeners();
+  }
+
+  String _toDoListIdx = '';
+  String get toDoListIdx => _toDoListIdx;
+  set toDoListIdx(String value) {
     _toDoListIdx = value;
+    notifyListeners();
+  }
+
+  String _completeTitle = '';
+  String get completeTitle => _completeTitle;
+  set completeTitle(String value) {
+    _completeTitle = value;
+    notifyListeners();
+  }
+
+  int _completePriority = 0;
+  int get completePriority => _completePriority;
+  set completePriority(int value) {
+    _completePriority = value;
+    notifyListeners();
+  }
+
+  int _completeColor = 0;
+  int get completeColor => _completeColor;
+  set completeColor(int value) {
+    _completeColor = value;
+    notifyListeners();
+  }
+
+  bool _backgroundColorChoice = false;
+  bool get backgroundColorChoice => _backgroundColorChoice;
+  set backgroundColorChoice(bool value) {
+    _backgroundColorChoice = value;
+    notifyListeners();
+  }
+
+  int _backgroundColor = 0;
+  int get backgroundColor => _backgroundColor;
+  set backgroundColor(int value) {
+    _backgroundColor = value;
     notifyListeners();
   }
 }

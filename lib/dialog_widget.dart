@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_list/main_home.dart';
+import 'package:todo_list/provider/todo_list_provider.dart';
+
+import 'database/complete_db.dart';
+import 'database/db.dart';
+import 'database/todo.dart';
 
 // ignore: must_be_immutable
 class FunkyOverlay extends StatefulWidget {
@@ -8,6 +14,7 @@ class FunkyOverlay extends StatefulWidget {
   final Function? onSubmit;
   final int? toDoListIdx;
   bool? isDeleteItem;
+  bool? isCompleteToDoTitle;
 
   FunkyOverlay({
     required this.title,
@@ -17,6 +24,7 @@ class FunkyOverlay extends StatefulWidget {
     this.onSubmit,
     this.toDoListIdx,
     this.isDeleteItem,
+    this.isCompleteToDoTitle,
   });
 
   @override
@@ -27,6 +35,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   Animation<double>? scaleAnimation;
+  ToDoListProvider? toDoListProvider;
 
   @override
   void initState() {
@@ -40,8 +49,34 @@ class FunkyOverlayState extends State<FunkyOverlay>
     controller!.forward();
   }
 
+  Future<void> _deleteDB({
+    String? idx,
+    String? title,
+    int? priority,
+    int? color,
+  }) async {
+    DBHelper db = DBHelper();
+    CompleteDBHelper completeDB = CompleteDBHelper();
+
+    await db.deleteMemo(idx!);
+    print(await db.memos());
+
+    var completeToDo = ToDo(
+      id: idx,
+      title: title,
+      priority: priority,
+      success: 1,
+      color: color,
+    );
+
+    await completeDB.insertMemo(completeToDo);
+    print(await completeDB.memos());
+  }
+
   @override
   Widget build(BuildContext context) {
+    toDoListProvider = Provider.of<ToDoListProvider>(context);
+
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
@@ -201,7 +236,12 @@ class FunkyOverlayState extends State<FunkyOverlay>
             ),
             InkWell(
               onTap: () {
-                widget.onSubmit!(widget.toDoListIdx);
+                _deleteDB(
+                  idx: toDoListProvider!.toDoListIdx,
+                  title: toDoListProvider!.completeTitle,
+                  priority: toDoListProvider!.completePriority,
+                  color: toDoListProvider!.completeColor,
+                );
                 Navigator.pop(context);
               },
               child: Container(

@@ -20,10 +20,10 @@ class _ToDoListAddState extends State<ToDoListAdd> {
   final contentController = TextEditingController();
   ToDoListProvider? toDoListProvider;
 
-  int strSha512(String text) {
+  String strSha512(String text) {
     var bytes = utf8.encode(text); // data being hashed
     var digest = sha512.convert(bytes);
-    return int.parse(digest.toString());
+    return digest.toString();
   }
 
   Future<void> _insertDB() async {
@@ -33,7 +33,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
       id: strSha512(DateTime.now().toString()),
       title: titleController.text,
       priority: toDoListProvider!.priority,
-      success: 3,
+      success: 0,
       color: toDoListProvider!.colorSelect,
     );
 
@@ -103,7 +103,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                             shape: BoxShape.circle,
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(1000),
+                            borderRadius: BorderRadius.circular(1000.w),
                             child: Image.asset(
                               'assets/profile.JPG',
                               width: 40.w,
@@ -151,7 +151,6 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                         EdgeInsets.only(top: 16.w, right: 20.w, left: 20.w),
                     child: Text(
                       '얼만큼 중요한가요?',
-                      // strSha512(DateTime.now().toString()).toString(),
                       textScaleFactor: 1,
                       style: TextStyle(
                         color: Color(0xff22232B),
@@ -172,7 +171,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                         right: 20.w,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.w),
                         color: toDoListProvider!.priority == 3
                             ? Color(0xffF1EBE5)
                             : Color(0xffFBF9F8),
@@ -202,7 +201,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                         right: 20.w,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.w),
                         color: toDoListProvider!.priority == 2
                             ? Color(0xffF1EBE5)
                             : Color(0xffFBF9F8),
@@ -232,7 +231,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                         right: 20.w,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.w),
                         color: toDoListProvider!.priority == 1
                             ? Color(0xffF1EBE5)
                             : Color(0xffFBF9F8),
@@ -305,30 +304,37 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                 ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 34.w),
-                  child: InkWell(
-                    onTap: () {
-                      _insertDB();
-                      Navigator.pop(context);
-                    },
-                    child: Center(
-                      child: Text(
-                        '작성 완료!',
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                          color: Color(0xff22232B),
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w400,
+            Visibility(
+              visible: titleController.text.isNotEmpty &&
+                  toDoListProvider!.priority != 0 &&
+                  toDoListProvider!.colorSelect != 0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 34.w),
+                    child: InkWell(
+                      onTap: () {
+                        _insertDB();
+                        toDoListProvider!.priority = 0;
+                        toDoListProvider!.colorSelect = 0;
+                        Navigator.pop(context);
+                      },
+                      child: Center(
+                        child: Text(
+                          '작성 완료!',
+                          textScaleFactor: 1,
+                          style: TextStyle(
+                            color: Color(0xff22232B),
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),
