@@ -222,6 +222,7 @@ class MainHome extends StatelessWidget {
                           ],
                         ),
                       ),
+                      SizedBox(height: 60.w),
                     ],
                   ),
                 ),

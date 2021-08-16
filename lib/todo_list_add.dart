@@ -134,6 +134,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                     child: TextField(
                       maxLines: 4,
                       keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.done,
                       controller: titleController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
