@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
 
+// ignore: must_be_immutable
 class BackgroundColorChoice extends StatelessWidget {
   ToDoListProvider? toDoListProvider;
 
