@@ -16,7 +16,7 @@ class CompleteDBHelper {
       // 데이터베이스가 처음 생성될 때, dog를 저장하기 위한 테이블을 생성합니다.
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE CompleteToDo(id TEXT PRIMARY KEY, title TEXT, priority INTEGER, success INTEGER, color INTEGER)",
+          "CREATE TABLE CompleteToDo(id TEXT PRIMARY KEY, title TEXT, priority INTEGER, success INTEGER, color INTEGER, date TEXT)",
         );
       },
       // 버전을 설정하세요. onCreate 함수에서 수행되며 데이터베이스 업그레이드와 다운그레이드를
@@ -54,6 +54,7 @@ class CompleteDBHelper {
         priority: maps[i]['priority'],
         success: maps[i]['success'],
         color: maps[i]['color'],
+        date: maps[i]['date'],
       );
     });
   }

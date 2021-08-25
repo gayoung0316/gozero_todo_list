@@ -36,7 +36,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
       priority: toDoListProvider!.priority,
       success: 0,
       color: toDoListProvider!.colorSelect,
-      date: '08월 19일',
+      date: DateFormat('MM월 dd일').format(DateTime.now()),
     );
 
     await db.insertMemo(todo);

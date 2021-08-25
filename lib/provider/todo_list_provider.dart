@@ -58,6 +58,13 @@ class ToDoListProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  String _completeDate = '';
+  String get completeDate => _completeDate;
+  set completeDate(String value) {
+    _completeDate = value;
+    notifyListeners();
+  }
+
   bool _backgroundColorChoice = false;
   bool get backgroundColorChoice => _backgroundColorChoice;
   set backgroundColorChoice(bool value) {

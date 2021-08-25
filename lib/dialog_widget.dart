@@ -54,6 +54,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
     String? title,
     int? priority,
     int? color,
+    String? date,
   }) async {
     DBHelper db = DBHelper();
     CompleteDBHelper completeDB = CompleteDBHelper();
@@ -67,6 +68,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
       priority: priority,
       success: 1,
       color: color,
+      date: date,
     );
 
     await completeDB.insertMemo(completeToDo);
@@ -241,6 +243,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
                   title: toDoListProvider!.completeTitle,
                   priority: toDoListProvider!.completePriority,
                   color: toDoListProvider!.completeColor,
+                  date: toDoListProvider!.completeDate,
                 );
                 Navigator.pop(context);
               },
