@@ -34,8 +34,7 @@ class CompleteToDo extends StatelessWidget {
             bottom: false,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

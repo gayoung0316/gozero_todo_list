@@ -78,4 +78,11 @@ class ToDoListProvider with ChangeNotifier {
     _backgroundColor = value;
     notifyListeners();
   }
+
+  String _todayDate = '';
+  String get todayDate => _todayDate;
+  set todayDate(String value) {
+    _todayDate = value;
+    notifyListeners();
+  }
 }
