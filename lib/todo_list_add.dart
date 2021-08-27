@@ -9,7 +9,7 @@ import 'package:todo_list/database/todo.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
 import 'package:crypto/crypto.dart';
 
-import 'dialog_widget.dart';
+import 'widget/dialog_widget.dart';
 
 class ToDoListAdd extends StatefulWidget {
   @override
