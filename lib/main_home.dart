@@ -3,13 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_list/background_color_choice.dart';
+import 'package:todo_list/widget/background_color_choice.dart';
 import 'package:todo_list/database/db.dart';
 import 'package:todo_list/todo_list_add.dart';
 import 'complete_todo.dart';
 import 'database/todo.dart';
 import 'date_pick_todo_list.dart';
-import 'dialog_widget.dart';
+import 'widget/dialog_widget.dart';
 import 'provider/todo_list_provider.dart';
 
 // ignore: must_be_immutable
