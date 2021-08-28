@@ -32,7 +32,6 @@ class CompleteToDo extends StatelessWidget {
             return Container();
           }
           return SafeArea(
-            bottom: false,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: SingleChildScrollView(
@@ -63,7 +62,7 @@ class CompleteToDo extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(1000.w),
                             child: Image.asset(
-                              'assets/profile.JPG',
+                              'assets/app_main_logo.png',
                               width: 40.w,
                               height: 40.w,
                               fit: BoxFit.cover,
@@ -105,9 +104,12 @@ class CompleteToDo extends StatelessWidget {
                       ],
                     ),
                     Visibility(
-                      visible: DateFormat('MM월 dd일').format(DateTime.now()) ==
-                          toDoListProvider!.todayDate,
+                      visible: toDoListProvider!.completeToDoList
+                          .where((todo) =>
+                              todo.date == toDoListProvider!.todayDate)
+                          .isNotEmpty,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
                             height: 26.w,
@@ -134,8 +136,13 @@ class CompleteToDo extends StatelessWidget {
                           ),
                           SizedBox(height: 14.w),
                           ...toDoListProvider!.completeToDoList
+                              .where((todo) =>
+                                  todo.date == toDoListProvider!.todayDate)
                               .map((ToDo item) {
                             int index = toDoListProvider!.completeToDoList
+                                .where((todo) =>
+                                    todo.date == toDoListProvider!.todayDate)
+                                .toList()
                                 .indexOf(item);
                             return Visibility(
                               visible: index < 3,
@@ -167,23 +174,42 @@ class CompleteToDo extends StatelessWidget {
                             );
                           }),
                           SizedBox(height: 48.w),
-                          Text(
-                            '오늘 하루 완전 고생 많으셨어요!',
-                            textScaleFactor: 1,
-                            style: TextStyle(
-                              color: Color(0xff22232B),
-                              letterSpacing: 2.w,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18.sp,
+                          Visibility(
+                            visible: toDoListProvider!.completeToDoList
+                                    .where((todo) =>
+                                        todo.date ==
+                                        toDoListProvider!.todayDate)
+                                    .toList()
+                                    .length >
+                                3,
+                            child: Text(
+                              '오늘 하루 완전 고생 많으셨어요!',
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                color: Color(0xff22232B),
+                                letterSpacing: 2.w,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18.sp,
+                              ),
                             ),
                           ),
                           SizedBox(height: 24.w),
                           ...toDoListProvider!.completeToDoList
+                              .where((todo) =>
+                                  todo.date == toDoListProvider!.todayDate)
                               .map((ToDo item) {
                             int index = toDoListProvider!.completeToDoList
+                                .where((todo) =>
+                                    todo.date == toDoListProvider!.todayDate)
+                                .toList()
                                 .indexOf(item);
                             return Visibility(
-                              visible: index >= 3,
+                              visible: index >= 3 &&
+                                  toDoListProvider!.completeToDoList
+                                      .where((todo) =>
+                                          todo.date ==
+                                          toDoListProvider!.todayDate)
+                                      .isNotEmpty,
                               child: Padding(
                                 padding: EdgeInsets.only(bottom: 16.w),
                                 child: Text(

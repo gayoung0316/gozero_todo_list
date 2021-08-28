@@ -23,8 +23,11 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: () => MaterialApp(
         title: 'ToDo List',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'SeoulNamsan',
         ),
@@ -35,7 +38,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MainToDoListPage extends StatefulWidget {
-  MainToDoListPage({Key? key}) : super(key: key);
   @override
   _MainToDoListPageState createState() => _MainToDoListPageState();
 }

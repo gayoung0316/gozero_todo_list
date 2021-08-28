@@ -81,17 +81,23 @@ class FunkyOverlayState extends State<FunkyOverlay>
   Widget build(BuildContext context) {
     toDoListProvider = Provider.of<ToDoListProvider>(context);
 
-    return GestureDetector(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        color: Color.fromRGBO(16, 13, 13, 0.7),
-        child: ScaleTransition(
-          scale: scaleAnimation!,
-          child: widget.isDeleteItem! ? deleteItem() : checkItem(),
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            color: Color.fromRGBO(16, 13, 13, 0.7),
+          ),
         ),
-      ),
+        Container(
+          child: ScaleTransition(
+            scale: scaleAnimation!,
+            child: widget.isDeleteItem! ? deleteItem() : checkItem(),
+          ),
+        ),
+      ],
     );
   }
 
@@ -103,7 +109,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
         height: 168.w,
         decoration: BoxDecoration(
           color: Color(0xffFFFFFF),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.w),
         ),
         child: Column(
           children: <Widget>[

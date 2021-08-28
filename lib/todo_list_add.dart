@@ -39,7 +39,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
       priority: toDoListProvider!.priority,
       success: 0,
       color: toDoListProvider!.colorSelect,
-      date: DateFormat('MM월 dd일').format(DateTime.now()),
+      date: toDoListProvider!.todayDate,
     );
 
     await db.insertMemo(todo);
@@ -91,7 +91,6 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                                 confirmButtonText: '오늘 할래',
                                 isDeleteItem: false,
                                 panelController: widget.panelController,
-                                // textEditingController: titleController,
                               ),
                             );
                           },
@@ -206,7 +205,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                       height: 48.w,
                       child: Center(
                         child: Text(
-                          '해야 하지만 오늘 하기엔 어려울 거 같아',
+                          '해야 하지만 오늘 하기엔 어려울지도',
                           style: TextStyle(
                             color: Color(0xff22232B),
                             fontSize: 14.sp,

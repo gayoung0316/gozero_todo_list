@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,7 +6,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_list/widget/background_color_choice.dart';
 import 'package:todo_list/database/db.dart';
 import 'package:todo_list/todo_list_add.dart';
-import 'complete_todo.dart';
+import 'complete_todo_list.dart';
 import 'model/todo.dart';
 import 'date_pick_todo_list.dart';
 import 'widget/dialog_widget.dart';
@@ -21,11 +20,7 @@ class MainHome extends StatefulWidget {
 
 class _MainHomeState extends State<MainHome> {
   DBHelper dbHelper = DBHelper();
-
   ToDoListProvider? toDoListProvider;
-
-  String? date = DateFormat('MM월 dd일').format(DateTime.now());
-
   final PageController pageController = PageController(initialPage: 0);
   final PanelController panelController = PanelController();
 
@@ -103,7 +98,7 @@ class _MainHomeState extends State<MainHome> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(1000),
                                 child: Image.asset(
-                                  'assets/profile.JPG',
+                                  'assets/app_main_logo.png',
                                   width: 40.w,
                                   height: 40.w,
                                   fit: BoxFit.cover,
@@ -121,7 +116,7 @@ class _MainHomeState extends State<MainHome> {
                             Row(
                               children: [
                                 Text(
-                                  DateFormat('MM월 dd일').format(DateTime.now()),
+                                  toDoListProvider!.todayDate,
                                   textScaleFactor: 1,
                                   style: TextStyle(
                                     color:
@@ -175,70 +170,70 @@ class _MainHomeState extends State<MainHome> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 34.w),
+                        padding:
+                            EdgeInsets.only(top: 34.w, left: 10.w, right: 10.w),
                         child: Wrap(
                           children: [
-                            ...toDoListProvider!.toDoList.map(
+                            ...toDoListProvider!.toDoList
+                                .where((todo) =>
+                                    todo.date == toDoListProvider!.todayDate)
+                                .map(
                               (todo) {
-                                return Visibility(
-                                  visible: date == todo.date,
-                                  child: InkWell(
-                                    onTap: () {
-                                      toDoListProvider!.toDoListIdx = todo.id!;
-                                      toDoListProvider!.completeTitle =
-                                          todo.title!;
-                                      toDoListProvider!.completePriority =
-                                          todo.priority!;
-                                      toDoListProvider!.completeColor =
-                                          todo.color!;
-                                      toDoListProvider!.completeDate =
-                                          todo.date!;
+                                return InkWell(
+                                  onTap: () {
+                                    toDoListProvider!.toDoListIdx = todo.id!;
+                                    toDoListProvider!.completeTitle =
+                                        todo.title!;
+                                    toDoListProvider!.completePriority =
+                                        todo.priority!;
+                                    toDoListProvider!.completeColor =
+                                        todo.color!;
+                                    toDoListProvider!.completeDate = todo.date!;
 
-                                      showDialog(
-                                        barrierDismissible: false,
-                                        useSafeArea: false,
-                                        barrierColor:
-                                            Color.fromRGBO(16, 13, 13, 0.7),
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            FunkyOverlay(
-                                          title: "일은 잘 마무리 하였나요?",
-                                          description: "오늘 하루도 고생 많았어요",
-                                          confirmButtonText: "터뜨리기",
-                                          cancelButtonText: '',
-                                          isDeleteItem: true,
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      height: todo.priority == 1
-                                          ? 200.w
-                                          : todo.priority == 2
-                                              ? 150.w
-                                              : 100.w,
-                                      width: todo.priority == 1
-                                          ? 200.w
-                                          : todo.priority == 2
-                                              ? 150.w
-                                              : 100.w,
-                                      margin: EdgeInsets.only(
-                                        left: 5.w,
-                                        right: 5.w,
-                                        bottom: 5.w,
+                                    showDialog(
+                                      barrierDismissible: false,
+                                      useSafeArea: false,
+                                      barrierColor:
+                                          Color.fromRGBO(16, 13, 13, 0.7),
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          FunkyOverlay(
+                                        title: "일은 잘 마무리 하였나요?",
+                                        description: "오늘 하루도 고생 많았어요",
+                                        confirmButtonText: "터뜨리기",
+                                        cancelButtonText: '',
+                                        isDeleteItem: true,
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: Color(
-                                            int.parse(todo.color.toString())),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.w),
-                                          child: Text(
-                                            '${todo.title}',
-                                            textAlign: TextAlign.center,
-                                          ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: todo.priority == 1
+                                        ? 200.w
+                                        : todo.priority == 2
+                                            ? 150.w
+                                            : 100.w,
+                                    width: todo.priority == 1
+                                        ? 200.w
+                                        : todo.priority == 2
+                                            ? 150.w
+                                            : 100.w,
+                                    margin: EdgeInsets.only(
+                                      left: 5.w,
+                                      right: 5.w,
+                                      bottom: 5.w,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color(
+                                          int.parse(todo.color.toString())),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.w),
+                                        child: Text(
+                                          '${todo.title}',
+                                          textAlign: TextAlign.center,
                                         ),
                                       ),
                                     ),

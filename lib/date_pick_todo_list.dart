@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
-import 'complete_todo.dart';
+import 'complete_todo_list.dart';
 
 class DatePickTodoList extends StatefulWidget {
   final PageController pageController;
@@ -40,14 +40,7 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CompleteToDo(),
-                          ),
-                        );
-                      },
+                      onTap: () {},
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -60,7 +53,7 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(1000),
                           child: Image.asset(
-                            'assets/profile.JPG',
+                            'assets/app_main_logo.png',
                             width: 40.w,
                             height: 40.w,
                             fit: BoxFit.cover,
@@ -177,6 +170,8 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
             alignment: Alignment.bottomCenter,
             child: InkWell(
               onTap: () {
+                toDoListProvider!.todayDate =
+                    DateFormat('MM월 dd일').format(_controller.selectedDate!);
                 widget.pageController.animateToPage(
                   1,
                   duration: Duration(milliseconds: 300),
@@ -184,7 +179,15 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                 );
               },
               child: Text(
-                '자세히 보기',
+                // '자세히 보기',
+                toDoListProvider!.toDoList
+                        .where((todo) =>
+                            DateFormat('MM월 dd일')
+                                .format(_controller.selectedDate!) ==
+                            todo.date)
+                        .isNotEmpty
+                    ? '자세히 보기'
+                    : '작성하러 가기',
                 textScaleFactor: 1,
                 style: TextStyle(
                   fontSize: 22.sp,
