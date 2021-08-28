@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
 
 import 'database/complete_db.dart';
-import 'database/todo.dart';
+import 'model/todo.dart';
 
 // ignore: must_be_immutable
 class CompleteToDo extends StatelessWidget {
@@ -103,93 +104,103 @@ class CompleteToDo extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 26.w,
-                    ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/trophy_cup.png',
-                          width: 20.w,
-                          height: 40.w,
-                        ),
-                        SizedBox(width: 16.w),
-                        Text(
-                          '명예의 전당',
-                          textScaleFactor: 1,
-                          style: TextStyle(
-                            color: Color(0xff22232B),
-                            letterSpacing: 2.w,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18.sp,
+                    Visibility(
+                      visible: DateFormat('MM월 dd일').format(DateTime.now()) ==
+                          toDoListProvider!.todayDate,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 26.w,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 14.w),
-                    ...toDoListProvider!.completeToDoList.map((ToDo item) {
-                      int index =
-                          toDoListProvider!.completeToDoList.indexOf(item);
-                      return Visibility(
-                        visible: index < 3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xffF1EBE5),
-                            borderRadius: BorderRadius.circular(8.w),
-                          ),
-                          margin:
-                              EdgeInsets.only(bottom: index == 2 ? 0 : 16.w),
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 19.w,
-                                horizontal: 26.w,
+                          Row(
+                            children: [
+                              Image.asset(
+                                'assets/trophy_cup.png',
+                                width: 20.w,
+                                height: 40.w,
                               ),
-                              child: Text(
-                                item.title!,
+                              SizedBox(width: 16.w),
+                              Text(
+                                '명예의 전당',
                                 textScaleFactor: 1,
                                 style: TextStyle(
                                   color: Color(0xff22232B),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15.sp,
+                                  letterSpacing: 2.w,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ),
-                      );
-                    }),
-                    SizedBox(height: 48.w),
-                    Text(
-                      '오늘 하루 완전 고생 많으셨어요!',
-                      textScaleFactor: 1,
-                      style: TextStyle(
-                        color: Color(0xff22232B),
-                        letterSpacing: 2.w,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18.sp,
-                      ),
-                    ),
-                    SizedBox(height: 24.w),
-                    ...toDoListProvider!.completeToDoList.map((ToDo item) {
-                      int index =
-                          toDoListProvider!.completeToDoList.indexOf(item);
-                      return Visibility(
-                        visible: index >= 3,
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 16.w),
-                          child: Text(
-                            item.title!,
+                          SizedBox(height: 14.w),
+                          ...toDoListProvider!.completeToDoList
+                              .map((ToDo item) {
+                            int index = toDoListProvider!.completeToDoList
+                                .indexOf(item);
+                            return Visibility(
+                              visible: index < 3,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xffF1EBE5),
+                                  borderRadius: BorderRadius.circular(8.w),
+                                ),
+                                margin: EdgeInsets.only(
+                                    bottom: index == 2 ? 0 : 16.w),
+                                child: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 19.w,
+                                      horizontal: 26.w,
+                                    ),
+                                    child: Text(
+                                      item.title!,
+                                      textScaleFactor: 1,
+                                      style: TextStyle(
+                                        color: Color(0xff22232B),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                          SizedBox(height: 48.w),
+                          Text(
+                            '오늘 하루 완전 고생 많으셨어요!',
                             textScaleFactor: 1,
                             style: TextStyle(
                               color: Color(0xff22232B),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15.sp,
+                              letterSpacing: 2.w,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18.sp,
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                          SizedBox(height: 24.w),
+                          ...toDoListProvider!.completeToDoList
+                              .map((ToDo item) {
+                            int index = toDoListProvider!.completeToDoList
+                                .indexOf(item);
+                            return Visibility(
+                              visible: index >= 3,
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 16.w),
+                                child: Text(
+                                  item.title!,
+                                  textScaleFactor: 1,
+                                  style: TextStyle(
+                                    color: Color(0xff22232B),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 15.sp,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

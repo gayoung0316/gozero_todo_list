@@ -4,21 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_list/database/db.dart';
-import 'package:todo_list/database/todo.dart';
+import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
 import 'package:crypto/crypto.dart';
 
 import 'widget/dialog_widget.dart';
 
 class ToDoListAdd extends StatefulWidget {
+  final PanelController panelController;
+  ToDoListAdd(this.panelController);
+
   @override
   _ToDoListAddState createState() => _ToDoListAddState();
 }
 
 class _ToDoListAddState extends State<ToDoListAdd> {
   final titleController = TextEditingController();
-  final contentController = TextEditingController();
   ToDoListProvider? toDoListProvider;
 
   String strSha512(String text) {
@@ -32,7 +35,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
 
     var todo = ToDo(
       id: strSha512(DateTime.now().toString()),
-      title: titleController.text,
+      title: toDoListProvider!.textEditingController.text,
       priority: toDoListProvider!.priority,
       success: 0,
       color: toDoListProvider!.colorSelect,
@@ -69,12 +72,12 @@ class _ToDoListAddState extends State<ToDoListAdd> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.w, right: 20.w),
+                        child: InkWell(
                           onTap: () {
                             showDialog(
                               barrierDismissible: false,
@@ -87,35 +90,26 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                                 cancelButtonText: "내일 할래",
                                 confirmButtonText: '오늘 할래',
                                 isDeleteItem: false,
+                                panelController: widget.panelController,
+                                // textEditingController: titleController,
                               ),
                             );
                           },
-                          child: Image.asset(
-                            'assets/left_arrow.png',
-                            width: 8.w,
-                            height: 18.w,
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Color(0xffE2DED8),
-                              width: 1.w,
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(1000.w),
-                            child: Image.asset(
-                              'assets/profile.JPG',
-                              width: 40.w,
-                              height: 40.w,
-                              fit: BoxFit.cover,
+                          child: Text(
+                            '취소',
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                              color: toDoListProvider!.backgroundColor == 2
+                                  ? Colors.white
+                                  : Color(0xff22232B),
+                              fontSize: 16.sp,
+                              letterSpacing: 2,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding:
@@ -137,7 +131,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                       maxLines: 4,
                       keyboardType: TextInputType.multiline,
                       textInputAction: TextInputAction.done,
-                      controller: titleController,
+                      controller: toDoListProvider!.textEditingController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: '모두 힘을 내 작성해 보아요.',
@@ -309,9 +303,10 @@ class _ToDoListAddState extends State<ToDoListAdd> {
               ),
             ),
             Visibility(
-              visible: titleController.text.isNotEmpty &&
-                  toDoListProvider!.priority != 0 &&
-                  toDoListProvider!.colorSelect != 0,
+              visible:
+                  toDoListProvider!.textEditingController.text.isNotEmpty &&
+                      toDoListProvider!.priority != 0 &&
+                      toDoListProvider!.colorSelect != 0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -320,9 +315,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
                     child: InkWell(
                       onTap: () {
                         _insertDB();
-                        toDoListProvider!.priority = 0;
-                        toDoListProvider!.colorSelect = 0;
-                        Navigator.pop(context);
+                        widget.panelController.close();
                       },
                       child: Center(
                         child: Text(

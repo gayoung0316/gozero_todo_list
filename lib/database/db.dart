@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:todo_list/database/todo.dart';
+import 'package:todo_list/model/todo.dart';
 
 class DBHelper {
   var _db;

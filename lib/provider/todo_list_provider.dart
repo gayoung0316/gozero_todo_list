@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/database/todo.dart';
+import 'package:todo_list/model/todo.dart';
 
 class ToDoListProvider with ChangeNotifier {
   int _colorSelect = 0;
@@ -85,4 +85,7 @@ class ToDoListProvider with ChangeNotifier {
     _todayDate = value;
     notifyListeners();
   }
+
+  TextEditingController _textEditingController = TextEditingController();
+  get textEditingController => _textEditingController;
 }

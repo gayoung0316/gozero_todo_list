@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_list/main_home.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
 
 import '../database/complete_db.dart';
 import '../database/db.dart';
-import '../database/todo.dart';
+import '../model/todo.dart';
 
 // ignore: must_be_immutable
 class FunkyOverlay extends StatefulWidget {
   final String? title, description, cancelButtonText, confirmButtonText;
   final Function? onSubmit;
   final int? toDoListIdx;
-  bool? isDeleteItem;
-  bool? isCompleteToDoTitle;
+  final bool? isDeleteItem;
+  final bool? isCompleteToDoTitle;
+  final PanelController? panelController;
 
   FunkyOverlay({
     required this.title,
@@ -25,6 +26,7 @@ class FunkyOverlay extends StatefulWidget {
     this.toDoListIdx,
     this.isDeleteItem,
     this.isCompleteToDoTitle,
+    this.panelController,
   });
 
   @override
@@ -146,13 +148,8 @@ class FunkyOverlayState extends State<FunkyOverlay>
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => MainHome(),
-                          ),
-                          (route) => false,
-                        );
+                        Navigator.pop(context);
+                        widget.panelController!.close();
                       },
                       child: Text(
                         widget.cancelButtonText!,
