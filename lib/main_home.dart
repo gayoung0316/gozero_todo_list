@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_list/widget/background_color_choice.dart';
 import 'package:todo_list/database/db.dart';
 import 'package:todo_list/todo_list_add.dart';
-import 'complete_todo_list.dart';
+import 'package:todo_list/widget/setting_box.dart';
 import 'model/todo.dart';
 import 'date_pick_todo_list.dart';
 import 'widget/dialog_widget.dart';
@@ -51,135 +52,129 @@ class _MainHomeState extends State<MainHome> {
           }
           return Stack(
             children: [
-              SafeArea(
-                bottom: false,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 20.w),
-                            child: InkWell(
-                              onTap: () {
-                                pageController.animateToPage(
-                                  0,
-                                  duration: Duration(milliseconds: 300),
-                                  curve: Curves.linear,
-                                );
-                              },
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 50.w),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 20.w),
+                          child: InkWell(
+                            onTap: () {
+                              pageController.animateToPage(
+                                0,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.linear,
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/left_arrow.png',
+                              width: 8.w,
+                              height: 18.w,
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => toDoListProvider!.isSetting =
+                              !toDoListProvider!.isSetting,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Color(0xffE2DED8),
+                                width: 1.w,
+                              ),
+                              shape: BoxShape.circle,
+                            ),
+                            margin: EdgeInsets.only(right: 20.w),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(1000),
                               child: Image.asset(
-                                'assets/left_arrow.png',
-                                width: 8.w,
-                                height: 18.w,
+                                'assets/app_main_logo.png',
+                                width: 40.w,
+                                height: 40.w,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CompleteToDo(),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w, top: 19.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                toDoListProvider!.todayDate,
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                  color: toDoListProvider!.backgroundColor == 2
+                                      ? Colors.white
+                                      : Color(0xff22232B),
+                                  fontSize: 30.sp,
+                                  letterSpacing: 2,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color(0xffE2DED8),
-                                  width: 1.w,
-                                ),
-                                shape: BoxShape.circle,
                               ),
-                              margin: EdgeInsets.only(right: 20.w),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(1000),
-                                child: Image.asset(
-                                  'assets/app_main_logo.png',
-                                  width: 40.w,
-                                  height: 40.w,
-                                  fit: BoxFit.cover,
+                              IconButton(
+                                onPressed: () {
+                                  panelController.open();
+                                },
+                                icon: Image.asset(
+                                  'assets/todo_plus.png',
+                                  width: 32.w,
+                                  height: 32.w,
+                                  color: toDoListProvider!.backgroundColor == 2
+                                      ? Colors.white
+                                      : null,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 16.w),
+                            child: InkWell(
+                              onTap: () {
+                                toDoListProvider!.backgroundColorChoice = true;
+                              },
+                              child: Text(
+                                '인생은 한 방이다. 너 마음대로 살아라.',
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                  color: toDoListProvider!.backgroundColor == 2
+                                      ? Colors.white
+                                      : Color(0xff22232B),
+                                  fontSize: 16.sp,
+                                  letterSpacing: 2,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.w, top: 19.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  toDoListProvider!.todayDate,
-                                  textScaleFactor: 1,
-                                  style: TextStyle(
-                                    color:
-                                        toDoListProvider!.backgroundColor == 2
-                                            ? Colors.white
-                                            : Color(0xff22232B),
-                                    fontSize: 30.sp,
-                                    letterSpacing: 2,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    panelController.open();
-                                  },
-                                  icon: Image.asset(
-                                    'assets/todo_plus.png',
-                                    width: 32.w,
-                                    height: 32.w,
-                                    color:
-                                        toDoListProvider!.backgroundColor == 2
-                                            ? Colors.white
-                                            : null,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 16.w),
-                              child: InkWell(
-                                onTap: () {
-                                  toDoListProvider!.backgroundColorChoice =
-                                      true;
-                                },
-                                child: Text(
-                                  '인생은 한 방이다. 너 마음대로 살아라.',
-                                  textScaleFactor: 1,
-                                  style: TextStyle(
-                                    color:
-                                        toDoListProvider!.backgroundColor == 2
-                                            ? Colors.white
-                                            : Color(0xff22232B),
-                                    fontSize: 16.sp,
-                                    letterSpacing: 2,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 34.w, left: 10.w, right: 10.w),
-                        child: Wrap(
-                          children: [
-                            ...toDoListProvider!.toDoList
-                                .where((todo) =>
-                                    todo.date == toDoListProvider!.todayDate)
-                                .map(
-                              (todo) {
-                                return InkWell(
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 34.w, left: 10.w, right: 10.w),
+                      child: Wrap(
+                        children: [
+                          ...toDoListProvider!.toDoList
+                              .where((todo) =>
+                                  todo.date == toDoListProvider!.todayDate)
+                              .map(
+                            (todo) {
+                              return Pulse(
+                                animate:
+                                    !toDoListProvider!.toDoList.contains(todo)
+                                        ? true
+                                        : false,
+                                child: InkWell(
                                   onTap: () {
                                     toDoListProvider!.toDoListIdx = todo.id!;
                                     toDoListProvider!.completeTitle =
@@ -238,20 +233,24 @@ class _MainHomeState extends State<MainHome> {
                                       ),
                                     ),
                                   ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 60.w),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 60.w),
+                  ],
                 ),
               ),
               Visibility(
                 visible: toDoListProvider!.backgroundColorChoice,
                 child: BackgroundColorChoice(),
+              ),
+              Visibility(
+                visible: toDoListProvider!.isSetting,
+                child: SettingBox(),
               ),
               SlidingUpPanel(
                 controller: panelController,
@@ -281,14 +280,15 @@ class _MainHomeState extends State<MainHome> {
           ? Colors.transparent
           : toDoListProvider!.backgroundColor == 2
               ? Colors.black
-              : Colors.white,
+              : toDoListProvider!.backgroundColor == 4
+                  ? Color(0xffE5E5E5)
+                  : Colors.white,
       body: PageView(
         controller: pageController,
         physics: NeverScrollableScrollPhysics(),
         children: [
           DatePickTodoList(pageController),
           Container(
-            height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               gradient: toDoListProvider!.backgroundColor == 3
                   ? LinearGradient(

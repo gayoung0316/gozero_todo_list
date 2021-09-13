@@ -241,13 +241,17 @@ class FunkyOverlayState extends State<FunkyOverlay>
             ),
             InkWell(
               onTap: () {
-                _deleteDB(
-                  idx: toDoListProvider!.toDoListIdx,
-                  title: toDoListProvider!.completeTitle,
-                  priority: toDoListProvider!.completePriority,
-                  color: toDoListProvider!.completeColor,
-                  date: toDoListProvider!.completeDate,
-                );
+                Future.delayed(const Duration(seconds: 2), () {
+                  print('Hello, world');
+                  _deleteDB(
+                    idx: toDoListProvider!.toDoListIdx,
+                    title: toDoListProvider!.completeTitle,
+                    priority: toDoListProvider!.completePriority,
+                    color: toDoListProvider!.completeColor,
+                    date: toDoListProvider!.completeDate,
+                  );
+                });
+
                 Navigator.pop(context);
               },
               child: Container(

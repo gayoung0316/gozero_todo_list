@@ -116,6 +116,24 @@ class BackgroundColorChoice extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          backgroundColor(4);
+                        },
+                        child: Container(
+                          width: 32.w,
+                          height: 32.w,
+                          margin: EdgeInsets.only(left: 16.w),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.w),
+                            color: Color(0xffE5E5E5),
+                            border: Border.all(
+                              color: Color(0xffE2DED9),
+                              width: 1,
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   )

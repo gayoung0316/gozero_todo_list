@@ -86,6 +86,20 @@ class ToDoListProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isCompleteToDo = false;
+  bool get isCompleteToDo => _isCompleteToDo;
+  set isCompleteToDo(bool value) {
+    _isCompleteToDo = value;
+    notifyListeners();
+  }
+
   TextEditingController _textEditingController = TextEditingController();
   get textEditingController => _textEditingController;
+
+  bool _isSetting = false;
+  bool get isSetting => _isSetting;
+  set isSetting(bool value) {
+    _isSetting = value;
+    notifyListeners();
+  }
 }
