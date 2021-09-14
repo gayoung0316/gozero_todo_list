@@ -7,8 +7,6 @@ import 'package:todo_list/provider/todo_list_provider.dart';
 import 'package:todo_list/widget/background_color_choice.dart';
 import 'package:todo_list/widget/setting_box.dart';
 
-import 'complete_todo_list.dart';
-
 class DatePickTodoList extends StatefulWidget {
   final PageController pageController;
   DatePickTodoList(this.pageController);
@@ -90,7 +88,9 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                       month,
                       textScaleFactor: 1,
                       style: TextStyle(
-                        color: Color(0xff22232B),
+                        color: toDoListProvider!.backgroundColor == 2
+                            ? Colors.white
+                            : Color(0xff22232B),
                         fontSize: 30.sp,
                         letterSpacing: 2,
                         fontWeight: FontWeight.bold,
@@ -109,7 +109,10 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                           viewHeaderHeight: 35.w,
                           viewHeaderStyle: DateRangePickerViewHeaderStyle(
                             textStyle: TextStyle(
-                              color: Color(0xff535359),
+                              color: toDoListProvider!.backgroundColor == 2
+                                  ? Colors.white
+                                  : Color(0xff535359),
+                              // color: Color(0xff535359),
                               fontSize: 12.sp,
                               letterSpacing: 2,
                               fontWeight: FontWeight.bold,
@@ -128,7 +131,9 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                           textStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14.sp,
-                            color: Color(0xff22232B),
+                            color: toDoListProvider!.backgroundColor == 2
+                                ? Colors.white
+                                : Color(0xff22232B),
                           ),
                           todayCellDecoration: BoxDecoration(
                             color: Colors.transparent,
@@ -136,7 +141,9 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                           todayTextStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14.sp,
-                            color: Color(0xff22232B),
+                            color: toDoListProvider!.backgroundColor == 2
+                                ? Colors.white
+                                : Color(0xff22232B),
                           ),
                         ),
                         selectionColor: Color(0xff76706B),
@@ -161,7 +168,9 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                     child: Text(
                       '${DateFormat('MM월 dd일').format(_controller.selectedDate!)}의 체크리스트',
                       style: TextStyle(
-                        color: Color(0xff22232B),
+                        color: toDoListProvider!.backgroundColor == 2
+                            ? Colors.white
+                            : Color(0xff22232B),
                         fontWeight: FontWeight.w700,
                         letterSpacing: 2.w,
                         fontSize: 18.sp,
@@ -182,7 +191,9 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                           todo.title!,
                           textScaleFactor: 1,
                           style: TextStyle(
-                            color: Color(0xff22232B),
+                            color: toDoListProvider!.backgroundColor == 2
+                                ? Colors.white
+                                : Color(0xff22232B),
                             letterSpacing: 2,
                             fontWeight: FontWeight.w500,
                             fontSize: 14.sp,
@@ -199,7 +210,9 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                         '+ ${toDoListProvider!.toDoList.length - 5}개의 체크리스트',
                         textScaleFactor: 1,
                         style: TextStyle(
-                          color: Color(0xff22232B).withOpacity(0.5),
+                          color: toDoListProvider!.backgroundColor == 2
+                              ? Colors.white.withOpacity(0.5)
+                              : Color(0xff22232B).withOpacity(0.5),
                           letterSpacing: 2,
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
@@ -235,7 +248,9 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                   textScaleFactor: 1,
                   style: TextStyle(
                     fontSize: 22.sp,
-                    color: Color(0xff22232B),
+                    color: toDoListProvider!.backgroundColor == 2
+                        ? Colors.white
+                        : Color(0xff22232B),
                     letterSpacing: 2,
                     fontWeight: FontWeight.w700,
                   ),

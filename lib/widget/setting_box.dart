@@ -8,7 +8,6 @@ class SettingBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ToDoListProvider? toDoListProvider = Provider.of<ToDoListProvider>(context);
-    ;
     return Positioned(
       top: 108.w,
       right: 20.w,
@@ -32,7 +31,7 @@ class SettingBox extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                toDoListProvider!.isSetting = false;
+                toDoListProvider.isSetting = false;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -53,8 +52,8 @@ class SettingBox extends StatelessWidget {
             SizedBox(height: 33.w),
             InkWell(
               onTap: () {
-                toDoListProvider!.isSetting = false;
-                toDoListProvider!.backgroundColorChoice = true;
+                toDoListProvider.isSetting = false;
+                toDoListProvider.backgroundColorChoice = true;
               },
               child: Text(
                 '배경 색상 설정',

@@ -48,6 +48,9 @@ class CompleteToDo extends StatelessWidget {
                           'assets/left_arrow.png',
                           width: 8.w,
                           height: 18.w,
+                          color: toDoListProvider!.backgroundColor == 2
+                              ? Colors.white
+                              : Color(0xff22232B),
                         ),
                       ),
                       Container(
@@ -78,7 +81,9 @@ class CompleteToDo extends StatelessWidget {
                         '완료 목록',
                         textScaleFactor: 1,
                         style: TextStyle(
-                          color: Color(0xff22232B),
+                          color: toDoListProvider!.backgroundColor == 2
+                              ? Colors.white
+                              : Color(0xff22232B),
                           fontSize: 30.sp,
                           letterSpacing: 2,
                           fontWeight: FontWeight.bold,
@@ -92,7 +97,9 @@ class CompleteToDo extends StatelessWidget {
                             '당신의 하루는 웃음만 가득했으면 좋겠다',
                             textScaleFactor: 1,
                             style: TextStyle(
-                              color: Color(0xff22232B),
+                              color: toDoListProvider!.backgroundColor == 2
+                                  ? Colors.white
+                                  : Color(0xff22232B),
                               fontSize: 16.sp,
                               letterSpacing: 2,
                               fontWeight: FontWeight.w400,
@@ -184,7 +191,9 @@ class CompleteToDo extends StatelessWidget {
                             '오늘 하루 완전 고생 많으셨어요!',
                             textScaleFactor: 1,
                             style: TextStyle(
-                              color: Color(0xff22232B),
+                              color: toDoListProvider!.backgroundColor == 2
+                                  ? Colors.white
+                                  : Color(0xff22232B),
                               letterSpacing: 2.w,
                               fontWeight: FontWeight.w600,
                               fontSize: 18.sp,
@@ -214,7 +223,9 @@ class CompleteToDo extends StatelessWidget {
                                 item.title!,
                                 textScaleFactor: 1,
                                 style: TextStyle(
-                                  color: Color(0xff22232B),
+                                  color: toDoListProvider!.backgroundColor == 2
+                                      ? Colors.white
+                                      : Color(0xff22232B),
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15.sp,
                                 ),

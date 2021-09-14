@@ -74,6 +74,9 @@ class _MainHomeState extends State<MainHome> {
                               'assets/left_arrow.png',
                               width: 8.w,
                               height: 18.w,
+                              color: toDoListProvider!.backgroundColor == 2
+                                  ? Color(0xffF8f8f8)
+                                  : Color(0xff22232B),
                             ),
                           ),
                         ),
@@ -138,21 +141,16 @@ class _MainHomeState extends State<MainHome> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 16.w),
-                            child: InkWell(
-                              onTap: () {
-                                toDoListProvider!.backgroundColorChoice = true;
-                              },
-                              child: Text(
-                                '인생은 한 방이다. 너 마음대로 살아라.',
-                                textScaleFactor: 1,
-                                style: TextStyle(
-                                  color: toDoListProvider!.backgroundColor == 2
-                                      ? Colors.white
-                                      : Color(0xff22232B),
-                                  fontSize: 16.sp,
-                                  letterSpacing: 2,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                            child: Text(
+                              '인생은 한 방이다. 너 마음대로 살아라.',
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                color: toDoListProvider!.backgroundColor == 2
+                                    ? Colors.white
+                                    : Color(0xff22232B),
+                                fontSize: 16.sp,
+                                letterSpacing: 2,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),
