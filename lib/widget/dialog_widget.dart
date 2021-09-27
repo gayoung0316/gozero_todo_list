@@ -5,7 +5,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
 
 import '../database/complete_db.dart';
-import '../database/db.dart';
+import '../database/write_db.dart';
 import '../model/todo.dart';
 
 // ignore: must_be_immutable
@@ -58,7 +58,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
     int? color,
     String? date,
   }) async {
-    DBHelper db = DBHelper();
+    ToDoDBHelper db = ToDoDBHelper();
     CompleteDBHelper completeDB = CompleteDBHelper();
 
     await db.deleteMemo(idx!);
@@ -241,17 +241,13 @@ class FunkyOverlayState extends State<FunkyOverlay>
             ),
             InkWell(
               onTap: () {
-                Future.delayed(const Duration(seconds: 2), () {
-                  print('Hello, world');
-                  _deleteDB(
-                    idx: toDoListProvider!.toDoListIdx,
-                    title: toDoListProvider!.completeTitle,
-                    priority: toDoListProvider!.completePriority,
-                    color: toDoListProvider!.completeColor,
-                    date: toDoListProvider!.completeDate,
-                  );
-                });
-
+                _deleteDB(
+                  idx: toDoListProvider!.toDoListIdx,
+                  title: toDoListProvider!.completeTitle,
+                  priority: toDoListProvider!.completePriority,
+                  color: toDoListProvider!.completeColor,
+                  date: toDoListProvider!.completeDate,
+                );
                 Navigator.pop(context);
               },
               child: Container(

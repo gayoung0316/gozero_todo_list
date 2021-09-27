@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:todo_list/database/db.dart';
+import 'package:todo_list/database/write_db.dart';
 import 'package:todo_list/model/todo.dart';
 import 'package:todo_list/provider/todo_list_provider.dart';
 import 'package:crypto/crypto.dart';
@@ -30,7 +30,7 @@ class _ToDoListAddState extends State<ToDoListAdd> {
   }
 
   Future<void> _insertDB() async {
-    DBHelper db = DBHelper();
+    ToDoDBHelper db = ToDoDBHelper();
 
     var todo = ToDo(
       id: strSha512(DateTime.now().toString()),

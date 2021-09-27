@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:todo_list/model/todo.dart';
 
-class DBHelper {
+class ToDoDBHelper {
   var _db;
   BuildContext? buildContext;
 
