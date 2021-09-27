@@ -39,13 +39,16 @@ class SettingBox extends StatelessWidget {
                   ),
                 );
               },
-              child: Text(
-                '완료 목록',
-                textScaleFactor: 1,
-                style: TextStyle(
-                  color: Color(0xff22232B),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
+              child: Container(
+                width: 156.w,
+                child: Text(
+                  '완료 목록',
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                    color: Color(0xff22232B),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
             ),
@@ -55,13 +58,16 @@ class SettingBox extends StatelessWidget {
                 toDoListProvider.isSetting = false;
                 toDoListProvider.backgroundColorChoice = true;
               },
-              child: Text(
-                '배경 색상 설정',
-                textScaleFactor: 1,
-                style: TextStyle(
-                  color: Color(0xff22232B),
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
+              child: Container(
+                width: 156.w,
+                child: Text(
+                  '배경 색상 설정',
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                    color: Color(0xff22232B),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
             ),

@@ -220,42 +220,48 @@ class _DatePickTodoListState extends State<DatePickTodoList> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 80.w),
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(bottom: 45.w),
-              alignment: Alignment.bottomCenter,
-              child: InkWell(
-                onTap: () {
-                  toDoListProvider!.todayDate =
-                      DateFormat('MM월 dd일').format(_controller.selectedDate!);
-                  widget.pageController.animateToPage(
-                    1,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.linear,
-                  );
-                },
-                child: Text(
-                  toDoListProvider!.toDoList
-                          .where((todo) =>
-                              DateFormat('MM월 dd일')
-                                  .format(_controller.selectedDate!) ==
-                              todo.date)
-                          .isNotEmpty
-                      ? '자세히 보기'
-                      : '작성하러 가기',
-                  textScaleFactor: 1,
-                  style: TextStyle(
-                    fontSize: 22.sp,
-                    color: toDoListProvider!.backgroundColor == 2
-                        ? Colors.white
-                        : Color(0xff22232B),
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.w700,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: 80.w,
+                  alignment: Alignment.center,
+                  child: InkWell(
+                    onTap: () {
+                      toDoListProvider!.todayDate = DateFormat('MM월 dd일')
+                          .format(_controller.selectedDate!);
+                      widget.pageController.animateToPage(
+                        1,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.linear,
+                      );
+                    },
+                    child: Text(
+                      toDoListProvider!.toDoList
+                              .where((todo) =>
+                                  DateFormat('MM월 dd일')
+                                      .format(_controller.selectedDate!) ==
+                                  todo.date)
+                              .isNotEmpty
+                          ? '자세히 보기'
+                          : '작성하러 가기',
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                        fontSize: 22.sp,
+                        color: toDoListProvider!.backgroundColor == 2
+                            ? Colors.white
+                            : Color(0xff22232B),
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
             Visibility(
               visible: toDoListProvider!.backgroundColorChoice,
