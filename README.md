@@ -23,7 +23,11 @@
 <br>
 <br>
 
+### 프로젝트 후기는 벨로그 글을 확인 해주세요!
+https://velog.io/@baekmoon1230/series/수박-두잇
+
+<br>
+<br>
 
 ## App Info
-
 이 앱은 Flutter로 제작 되었습니다.
